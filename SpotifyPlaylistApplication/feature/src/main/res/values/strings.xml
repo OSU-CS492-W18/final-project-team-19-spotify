@@ -2,7 +2,7 @@
 
     <string name="title_home">Home</string>
     <string name="title_undo">Undo</string>
-    <string name="title_love">Love</string>
+    <string name="title_like">Like</string>
     <string name="title_skip">Skip</string>
 
 </resources>

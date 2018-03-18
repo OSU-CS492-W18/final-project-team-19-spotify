@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
                 mTextMessage.setText(R.string.title_undo);
                 return true;
             } else if (id == R.id.navigation_dashboard) {
-                mTextMessage.setText(R.string.title_love);
+                mTextMessage.setText(R.string.title_like);
                 return true;
             } else if (id == R.id.navigation_notifications) {
                 mTextMessage.setText(R.string.title_skip);
