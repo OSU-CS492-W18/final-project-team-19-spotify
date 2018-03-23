@@ -138,9 +138,10 @@ public class SearchPresenter implements Search.ActionListener {
 
         if (currentTrackUrl != null) {
             Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(currentTrackUrl));
-            ///if (webIntent.resolveActivity(getPackageManager()) != null) {
+            //if (webIntent.resolveActivity(getPackageManager()) != null) {
                 mContext.startActivity(webIntent);
             }
+            //}
     }
 
     //}
