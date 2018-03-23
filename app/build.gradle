@@ -43,7 +43,7 @@ dependencies {
 
     compile('com.squareup.retrofit:retrofit:1.9.0')
 
-    compile group: 'com.google.guava', name: 'guava', version: 'r05'
-    compile group:'com.squareup.picasso', name:'picasso', version:'2.5.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.guava:guava:18.0'
 
 }
