@@ -1,13 +1,16 @@
 package com.example.spotifyplaylistapplication2;
 
+import android.support.v4.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
@@ -19,7 +22,9 @@ import java.util.List;
 
 import kaaes.spotify.webapi.android.models.Track;
 
-public class MainActivity extends AppCompatActivity implements Search.View {
+public class MainActivity extends AppCompatActivity implements Search.View, LoaderManager.LoaderCallbacks<String> {
+
+    private final static String TAG = MainActivity.class.getSimpleName();
 
     static final String EXTRA_TOKEN = "EXTRA_TOKEN";
     private static final String KEY_CURRENT_QUERY = "CURRENT_QUERY";
@@ -29,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements Search.View {
     private LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
     private ScrollListener mScrollListener = new ScrollListener(mLayoutManager);
     private SearchResultsAdapter mAdapter;
+
+    private final static int LOADER_ID = 0;
+
+    private final static String SEARCH_URL_KEY = "SearchQuery";
 
 
     private class ScrollListener extends ResultListScrollListener {
@@ -69,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements Search.View {
         }
     };
 
+    final SearchView searchView = ( SearchView ) findViewById(R.id.search_view);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,12 +98,17 @@ public class MainActivity extends AppCompatActivity implements Search.View {
         mActionListener.init(token);
 
         // Setup search field
-        final SearchView searchView = ( SearchView ) findViewById(R.id.search_view);
+
+        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 mActionListener.search(query);
                 searchView.clearFocus();
+                Bundle args = new Bundle();
+                args.putString(SEARCH_URL_KEY, query);
+                getSupportLoaderManager().restartLoader(LOADER_ID, args, this);
                 return true;
             }
 
@@ -121,6 +137,24 @@ public class MainActivity extends AppCompatActivity implements Search.View {
             String currentQuery = savedInstanceState.getString(KEY_CURRENT_QUERY);
             mActionListener.search(currentQuery);
         }
+
+
+    }
+
+    public void doSearch(String data){
+        mActionListener.search(data);
+        searchView.clearFocus();
+        Bundle args = new Bundle();
+        args.putString(SEARCH_URL_KEY, data);
+        getSupportLoaderManager().restartLoader(LOADER_ID, args, this);
+
+        RecyclerView resultsList = ( RecyclerView ) findViewById(R.id.search_results);
+        resultsList.setHasFixedSize(true);
+        resultsList.setLayoutManager(mLayoutManager);
+        resultsList.setAdapter(mAdapter);
+        resultsList.addOnScrollListener(mScrollListener);
+
+        mActionListener.search(data);
     }
 
     @Override
@@ -159,5 +193,29 @@ public class MainActivity extends AppCompatActivity implements Search.View {
         Spotify.destroyPlayer(this);
         mActionListener.destroy();
         super.onDestroy();
+    }
+
+    @Override
+    public android.support.v4.content.Loader<String> onCreateLoader(int id, Bundle args) {
+        String searchQuery = null;
+        if (args != null) {
+            searchQuery = args.getString(SEARCH_URL_KEY);
+        }
+        return new SearchLoader(this, searchQuery);
+    }
+
+    @Override
+    public void onLoadFinished(android.support.v4.content.Loader<String> loader, String data) {
+        Log.d(TAG, "loader finished loading");
+        if (data != null) {
+            doSearch(data);
+        }
+        else{
+
+        }
+    }
+    @Override
+    public void onLoaderReset(android.support.v4.content.Loader<String> loader) {
+        // Nothing to do...
     }
 }
