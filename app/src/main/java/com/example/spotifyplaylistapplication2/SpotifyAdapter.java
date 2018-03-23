@@ -2,6 +2,9 @@ package com.example.spotifyplaylistapplication2;
 
 import android.util.Log;
 
+import com.example.spotifyplaylistapplication2.models.Album;
+
+import retrofit.Callback;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 
@@ -30,17 +33,5 @@ spotify.getAlbum("2dIGnmEIy1WZIcZCFSj6i8", new Callback<Album>() {
         }
     });
 
-    final String accessToken = "myAccessToken";
 
-    RestAdapter restAdapter = new RestAdapter.Builder()
-            .setEndpoint(SpotifyApi.SPOTIFY_WEB_API_ENDPOINT)
-            .setRequestInterceptor(new RequestInterceptor() {
-                @Override
-                public void intercept(RequestFacade request) {
-                    request.addHeader("Authorization", "Bearer " + accessToken);
-                }
-            })
-            .build();
 
-    SpotifyService spotify = restAdapter.create(SpotifyService.class);
-}

@@ -1,6 +1,7 @@
 package com.example.spotifyplaylistapplication2;
 
-import kaaes.spotify.webapi.android.models.*;
+//import kaaes.spotify.webapi.android.models.*;
+import com.example.spotifyplaylistapplication2.models.*;
 import retrofit.RetrofitError;
 
 /**
@@ -73,7 +74,7 @@ public class SpotifyError extends Exception {
     }
 
     /**
-     * @return true if there are {@link kaaes.spotify.webapi.android.models.ErrorDetails}
+     * @return true if there are {@link com.example.spotifyplaylistapplication2.models.ErrorDetails}
      * associated with this error. False otherwise.
      */
     public boolean hasErrorDetails() {
