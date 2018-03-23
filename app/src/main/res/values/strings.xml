@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">SpotifyPlaylistApplication</string>
+    <string name="app_name">Spotify Playlist Manager</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_undo">Undo</string>
+    <string name="title_like">Like</string>
+    <string name="title_skip">Skip</string>
 </resources>
