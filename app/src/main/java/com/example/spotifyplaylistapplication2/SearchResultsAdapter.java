@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 //import com.google.common.base.Joiner;
 //import com.squareup.picasso.Picasso;
+import com.google.common.base.Joiner;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
