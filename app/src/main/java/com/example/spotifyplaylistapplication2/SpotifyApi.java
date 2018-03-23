@@ -4,14 +4,15 @@ package com.example.spotifyplaylistapplication2;
  * Created by nabz7 on 3/22/2018.
  */
 
-package kaaes.spotify.webapi.android;
+import java.util.concurrent.Executor;
 
-        import java.util.concurrent.Executor;
-        import java.util.concurrent.Executors;
+import retrofit.RestAdapter;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
-        import retrofit.RequestInterceptor;
-        import retrofit.RestAdapter;
-        import retrofit.android.MainThreadExecutor;
+import retrofit.RequestInterceptor;
+import retrofit.RestAdapter;
+import retrofit.android.MainThreadExecutor;
 
 /**
  * Creates and configures a REST adapter for Spotify Web API.

@@ -2,6 +2,9 @@ package com.example.spotifyplaylistapplication2;
 
 import android.util.Log;
 
+import retrofit.RequestInterceptor;
+import retrofit.RestAdapter;
+
 /**
  * Created by nabz7 on 3/22/2018.
  */
