@@ -3,7 +3,9 @@ package com.example.spotifyplaylistapplication2;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -59,6 +61,8 @@ public class SearchPresenter implements Search.ActionListener {
         mSearchPager = new SearchPager(spotifyApi.getService());
 
         mContext.bindService(PlayerService.getIntent(mContext), mServiceConnection, Activity.BIND_AUTO_CREATE);
+
+
     }
 
 
@@ -131,7 +135,15 @@ public class SearchPresenter implements Search.ActionListener {
         } else {
             mPlayer.resume();
         }
+
+        if (currentTrackUrl != null) {
+            Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(currentTrackUrl));
+            ///if (webIntent.resolveActivity(getPackageManager()) != null) {
+                mContext.startActivity(webIntent);
+            }
     }
+
+    //}
 
     private void logError(String msg) {
         Toast.makeText(mContext, "Error: " + msg, Toast.LENGTH_SHORT).show();
