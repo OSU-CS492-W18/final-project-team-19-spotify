@@ -32,4 +32,11 @@ dependencies {
 
     // This library handles music playback
     compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
+
+
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+
+    compile('com.squareup.retrofit:retrofit:1.9.0')
+
+
 }
