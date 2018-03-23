@@ -4,4 +4,9 @@
     <string name="title_undo">Undo</string>
     <string name="title_like">Like</string>
     <string name="title_skip">Skip</string>
+
+    <string name="login_button">Login to Spotify</string>
+    <string name="search">Search</string>
+    <string name="cover_art_description">Cover art</string>
+    <string name="search_hint">Search tracks</string>
 </resources>
