@@ -1,12 +1,11 @@
 package com.example.spotifyplaylistapplication2;
 
-import android.support.v4.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -65,26 +64,28 @@ public class MainActivity extends AppCompatActivity implements Search.View, Load
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_undo);
+                    //mTextMessage.setText(R.string.title_undo);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_like);
+                    //mTextMessage.setText(R.string.title_like);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_skip);
+                    //mTextMessage.setText(R.string.title_skip);
                     return true;
             }
             return false;
         }
     };
 
-    final SearchView searchView = ( SearchView ) findViewById(R.id.search_view);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        SearchView searchView = ( SearchView ) findViewById(R.id.search_view);
 
 
         mTextMessage = ( TextView ) findViewById(R.id.message);
@@ -101,15 +102,26 @@ public class MainActivity extends AppCompatActivity implements Search.View, Load
 
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
 
+
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            Bundle args = new Bundle();
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 mActionListener.search(query);
+                SearchView searchView = ( SearchView ) findViewById(R.id.search_view);
                 searchView.clearFocus();
-                Bundle args = new Bundle();
+                args = new Bundle();
                 args.putString(SEARCH_URL_KEY, query);
-                getSupportLoaderManager().restartLoader(LOADER_ID, args, this);
+                //getSupportLoaderManager().restartLoader(LOADER_ID, args, this);
+
                 return true;
+            }
+
+            Bundle getBundle(){
+                return args;
             }
 
             @Override
@@ -117,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements Search.View, Load
                 return false;
             }
         });
-
         // Setup search results list
         mAdapter = new SearchResultsAdapter(this, new SearchResultsAdapter.ItemSelectedListener() {
             @Override
@@ -143,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements Search.View, Load
 
     public void doSearch(String data){
         mActionListener.search(data);
+        SearchView searchView = ( SearchView ) findViewById(R.id.search_view);
         searchView.clearFocus();
         Bundle args = new Bundle();
         args.putString(SEARCH_URL_KEY, data);
